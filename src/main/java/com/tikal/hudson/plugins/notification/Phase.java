@@ -51,6 +51,8 @@ public enum Phase {
                     listener.getLogger().println( String.format( "Failed to notify endpoint '%s' - %s: %s",
                                                                  target, error.getClass().getName(), error.getMessage()));
                 }
+            } else {
+                listener.getLogger().println( String.format( "NOT Notifying endpoint '%s'", target ));
             }
         }
     }

@@ -14,6 +14,8 @@
 package com.tikal.hudson.plugins.notification;
 
 import com.google.gson.FieldNamingPolicy;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
@@ -36,7 +38,11 @@ public enum Format {
 
         @Override
         protected byte[] serialize(JobState jobState) throws IOException {
-            return gson.toJson(jobState).getBytes( "UTF-8" );
+            JsonElement jsonElement = gson.toJsonTree(jobState);
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            jsonObject.addProperty("auth_token", "YOUR_AUTH_TOKEN");
+            jsonObject.addProperty("value", 10);
+            return gson.toJson(jsonObject).getBytes( "UTF-8" );
         }
     };
 
